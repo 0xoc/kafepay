@@ -48,3 +48,17 @@ class ProductCreateView(CreateAPIView):
             return Response({'status':"Success"})
         else :
             return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GateCreateView(CreateAPIView):
+    serializer_class = GateCreateSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request, *args, **kwargs):
+        s = self.serializer_class(data=request.data, context={'profile': request.user.user_profile.first()})
+
+        if s.is_valid():
+            s.save()
+            return Response({'status':"Success"})
+        else :
+            return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)

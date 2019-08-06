@@ -70,7 +70,7 @@ class GateCreateSerializer(serializers.ModelSerializer):
         fields = ['title', 'description', 'url']
     
     def create(self, validated_data):
-        p = Product(**validated_data)
+        p = Gate(**validated_data)
         p.profile = self.context.get('profile')
 
         p.save()
