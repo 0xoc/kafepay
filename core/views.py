@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -62,3 +62,20 @@ class GateCreateView(CreateAPIView):
             return Response({'status':"Success"})
         else :
             return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductListView(ListAPIView):
+
+    permission_classes = [IsAuthenticated, ]
+    serializer_class = ProductListSerializer
+
+    def get_queryset(self):
+        return self.request.user.user_profile.first().products.all()
+
+class GateListView(ListAPIView):
+
+    permission_classes = [IsAuthenticated, ]
+    serializer_class = GateListSerializer
+    
+    def get_queryset(self):
+        return self.request.user.user_profile.first().gates.all()

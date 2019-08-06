@@ -76,3 +76,14 @@ class GateCreateSerializer(serializers.ModelSerializer):
         p.save()
 
         return p
+
+
+class ProductListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['title', 'description', 'price']
+
+class GateListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gate
+        fields = ['title', 'description', 'url']
