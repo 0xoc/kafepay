@@ -48,3 +48,17 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['title', 'description', 'price']
+    
+    def create(self, validated_data):
+        p = Product(**validated_data)
+        p.profile = self.context.get('profile')
+
+        p.save()
+
+        return p

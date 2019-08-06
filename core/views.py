@@ -35,3 +35,16 @@ class ProfileUpdateView(GenericAPIView):
         else:
             return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ProductCreateView(CreateAPIView):
+    serializer_class = ProductCreateSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request, *args, **kwargs):
+        s = self.serializer_class(data=request.data, context={'profile': request.user.user_profile.first()})
+
+        if s.is_valid():
+            s.save()
+            return Response({'status':"Success"})
+        else :
+            return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
