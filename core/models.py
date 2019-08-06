@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     shaba_number = models.CharField(max_length=255, blank=True, null=True)
 
 class Gate(models.Model):
-    user = models.ForeignKey(UserProfile, related_name="gates", on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile, related_name="gates", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=1000)
     url = models.CharField(max_length=255)

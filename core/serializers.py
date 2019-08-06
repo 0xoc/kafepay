@@ -62,3 +62,17 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         p.save()
 
         return p
+
+
+class GateCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gate
+        fields = ['title', 'description', 'url']
+    
+    def create(self, validated_data):
+        p = Product(**validated_data)
+        p.profile = self.context.get('profile')
+
+        p.save()
+
+        return p
