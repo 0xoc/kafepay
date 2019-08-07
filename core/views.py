@@ -4,6 +4,7 @@ from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 # Create your views here.
 
 
@@ -14,9 +15,11 @@ class ProfileCreateView(CreateAPIView):
         s = self.serializer_class(data=request.data)
 
         if s.is_valid():
-            s.save()
+            profile = s.save()
 
-            return Response({'status': 'success'})
+            token, created = Token.objects.get_or_create(user=profile.user)
+
+            return Response({'token': token.key}, status=status.HTTP_201_CREATED)
         else:
             return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
 
