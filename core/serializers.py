@@ -35,20 +35,25 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
 class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['account_number','shaba_number' ]
+        fields = [
+            'account_number',
+            'shaba_number',
+            'name',
+            'last_name',
+            'father_name',
+            'meli_number',
+            'sh_number',
+            'mobile_number',
+            'land_number',
+            'postal_code',
+            'city',
+            'address',
+            'is_verified', ]
     
 
     def update(self, instance, validated_data):
-        account_number = validated_data.pop('account_number', None)
-        shaba_number = validated_data.pop('shaba_number', None)
-
-        instance.account_number = account_number
-        instance.shaba_number = shaba_number
-        
-        instance.save()
-
+        UserProfile.objects.filter(pk=instance().pk).update(**validated_data)
         return instance
-
 
 class ProductCreateSerializer(serializers.ModelSerializer):
     class Meta:
