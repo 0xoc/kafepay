@@ -40,6 +40,8 @@ class Gate(models.Model):
     url = models.CharField(max_length=255)
 
     gate_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.title)

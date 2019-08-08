@@ -91,4 +91,4 @@ class ProductListSerializer(serializers.ModelSerializer):
 class GateListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gate
-        fields = ['title', 'description', 'url']
+        fields = ['title', 'description', 'url', 'gate_token', 'is_active']
