@@ -1,6 +1,7 @@
 import uuid as uuid
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 # Create your models here.
 
 class City(models.Model):
@@ -37,6 +38,8 @@ class Gate(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=1000)
     url = models.CharField(max_length=255)
+
+    gate_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
         return str(self.title)
