@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView, RetrieveAPIView
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -24,7 +24,7 @@ class ProfileCreateView(CreateAPIView):
             return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileUpdateView(RetrieveUpdateAPIView):
-    serializer_class = ProfileUpdateSerializer
+    serializer_class = ProfileRetriveUpdateSerializer
     permission_classes = [IsAuthenticated, ]
 
     def get_object(self):
@@ -39,6 +39,13 @@ class ProfileUpdateView(RetrieveUpdateAPIView):
         else:
             return Response({'status': 'failed', 'data': s.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ProfileRetriveView(RetrieveAPIView):
+    serializer_class = ProfileRetriveUpdateSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def get_object(self):
+        return self.request.user.user_profile.first()
 
 class ProductCreateView(CreateAPIView):
     serializer_class = ProductCreateSerializer

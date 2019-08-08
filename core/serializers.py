@@ -32,7 +32,7 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         return profile
 
 
-class ProfileUpdateSerializer(serializers.ModelSerializer):
+class ProfileRetriveUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = [
