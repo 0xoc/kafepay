@@ -7,4 +7,5 @@ urlpatterns = [
      path('create/gate/', GateCreateView.as_view()),
      path('list/gates/', GateListView.as_view()),
      path('list/products/', ProductListView.as_view()),
+     path('detail/products/<uuid:uuid>/', ProductRetrieveView.as_view()),
 ]

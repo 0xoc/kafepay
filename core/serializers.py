@@ -81,7 +81,7 @@ class GateCreateSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['title', 'description', 'price']
+        fields = ['title', 'description', 'price', 'uuid']
 
 class GateListSerializer(serializers.ModelSerializer):
     class Meta:

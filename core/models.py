@@ -1,3 +1,4 @@
+import uuid as uuid
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -17,8 +18,9 @@ class Gate(models.Model):
 class Product(models.Model):
     profile = models.ForeignKey(UserProfile, related_name="products", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.TextField()
     price = models.IntegerField()
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True)
 
 
 

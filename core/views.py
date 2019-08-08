@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView, RetrieveAPIView
 from .serializers import *
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -73,7 +73,14 @@ class ProductListView(ListAPIView):
     serializer_class = ProductListSerializer
 
     def get_queryset(self):
-        return self.request.user.user_profile.first().products.all()
+        return self.request.user.user_profile.first().products.all().order_by('-id')
+
+class ProductRetrieveView(RetrieveAPIView):
+
+    permission_classes = [AllowAny, ]
+    serializer_class = ProductListSerializer
+    lookup_field = 'uuid'
+    queryset = Product.objects.all()
 
 class GateListView(ListAPIView):
 
